@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhay Singh</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Sora:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0a; --surface: #111111; --surface2: #181818;
+    --border: rgba(255,255,255,0.08); --accent: #c8a96e; --accent2: #7ecfb3;
+    --text: #f0ede8; --muted: #6b6860;
+    --mono: 'DM Mono', monospace; --display: 'Bebas Neue', sans-serif; --body: 'Sora', sans-serif;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--body); font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(10,10,10,0.88); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--mono); font-size: 13px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 11px; color: var(--muted); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  #hero {
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 5rem; position: relative; overflow: hidden;
+  }
+  #hero::after {
+    content: ''; position: absolute; left: 3rem; right: 3rem; bottom: 2.5rem; height: 1px;
+    background: linear-gradient(90deg, var(--accent), transparent 55%); opacity: 0.35;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 980px; }
+  .hero-badge-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 1.1rem; animation: fadeUp 0.6s ease 0.05s both; }
+  .hero-badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); border: 1px solid var(--border); padding: 0.38rem 0.7rem;
+    background: rgba(255,255,255,0.025); border-radius: 999px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,169,110,0.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 60% at 20% 80%, rgba(126,207,179,0.04) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+  .hero-eyebrow { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1rem; animation: fadeUp 0.6s ease 0.1s both; }
+  h1 { font-family: var(--display); font-size: clamp(72px, 11vw, 130px); line-height: 0.86; letter-spacing: 0.02em; color: var(--text); margin-bottom: 2rem; animation: fadeUp 0.8s ease 0.25s both; text-shadow: 0 22px 70px rgba(200,169,110,0.08); }
+  h1 span { color: var(--accent); }
+  h1 .line { display: block; }
+  h1 .tomorrow { margin-top: 0.18em; }
+  h1 .for-word { display: inline-block; padding-right: 0.05em; text-shadow: 0 0 35px rgba(200,169,110,0.24); }
+  .hero-desc { max-width: 500px; font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; font-weight: 300; animation: fadeUp 0.7s ease 0.45s both; }
+  .hero-cta { display: flex; gap: 1rem; align-items: center; animation: fadeUp 0.7s ease 0.6s both; }
+  .btn-primary { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--bg); background: linear-gradient(135deg, var(--accent), #e4cf91); border: none; padding: 0.85rem 2rem; cursor: pointer; transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 12px 38px rgba(200,169,110,0.12); }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 18px 48px rgba(200,169,110,0.18); }
+  .btn-ghost { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); background: none; border: 1px solid var(--border); padding: 0.85rem 2rem; cursor: pointer; transition: color 0.2s, border-color 0.2s; }
+  .btn-ghost:hover { color: var(--text); border-color: rgba(255,255,255,0.25); }
+  .hero-contact-strip { display: flex; gap: 2rem; margin-top: 2rem; animation: fadeUp 0.7s ease 0.75s both; }
+  .hcs-item { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.05em; }
+  .hcs-item a { color: var(--accent2); text-decoration: none; }
+
+  section { padding: 6rem 3rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 3.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem; }
+  .section-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.15em; }
+  h2 { font-family: var(--display); font-size: clamp(36px, 5vw, 60px); color: var(--text); letter-spacing: 0.04em; line-height: 1; }
+
+  /* ABOUT */
+  #about { background: var(--surface); }
+  .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: start; }
+  .about-text p { color: var(--muted); font-size: 14px; font-weight: 300; margin-bottom: 1.2rem; line-height: 1.8; }
+  .about-text p strong { color: var(--text); font-weight: 400; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--border); }
+  .stat-box { padding: 1.5rem; background: var(--surface2); border: 1px solid var(--border); }
+  .stat-num { font-family: var(--display); font-size: 48px; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  /* EXPERIENCE */
+  #experience { background: var(--bg); }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .tl-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; padding-top: 0.2rem; }
+  .tl-role { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .tl-title { font-size: 16px; color: var(--text); font-weight: 400; margin-bottom: 0.5rem; }
+  .tl-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* EDUCATION */
+  #education { background: var(--surface); }
+  .edu-grid { display: flex; flex-direction: column; gap: 0; }
+  .edu-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); }
+  .edu-item:last-child { border-bottom: none; }
+  .edu-date { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; padding-top: 0.2rem; }
+  .edu-tag { font-family: var(--mono); font-size: 10px; color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .edu-institution { font-size: 15px; color: var(--text); font-weight: 400; margin-bottom: 0.3rem; }
+  .edu-degree { font-size: 13px; color: var(--muted); font-weight: 300; }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .project-card { background: var(--bg); padding: 2rem; cursor: pointer; transition: background 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: transparent; transition: background 0.2s; }
+  .project-card:hover { background: var(--surface); transform: translateY(-3px); }
+  .project-card:hover::before { background: var(--accent); }
+  .project-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
+  .project-title { font-family: var(--display); font-size: 26px; color: var(--text); letter-spacing: 0.03em; margin-bottom: 0.75rem; line-height: 1.1; }
+  .project-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* SKILLS */
+  #skills { background: var(--surface); }
+  .skills-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+  .skill-group-title { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.2rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+  .skill-item { margin-bottom: 0.9rem; }
+  .skill-name { font-size: 13px; color: var(--text); font-weight: 400; margin-bottom: 0.35rem; display: flex; justify-content: space-between; }
+  .skill-pct { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+  .skill-bar-bg { height: 2px; background: var(--border); position: relative; overflow: hidden; }
+  .skill-bar-fill { height: 100%; background: var(--accent); transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0; }
+  .skill-bar-fill.teal { background: var(--accent2); }
+
+  /* AWARDS */
+  #awards { background: var(--bg); }
+  .awards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .award-card { background: var(--bg); padding: 1.75rem 2rem; transition: background 0.2s; }
+  .award-card:hover { background: var(--surface); }
+  .award-icon { font-family: var(--display); font-size: 30px; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+  .award-title { font-size: 14px; color: var(--text); font-weight: 400; margin-bottom: 0.3rem; }
+  .award-event { font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+  /* CERTIFICATES */
+  #certificates { background: var(--surface); }
+  .cert-note {
+    color: var(--muted); font-size: 13px; font-weight: 300; line-height: 1.8;
+    max-width: 780px; margin: -1.5rem 0 2rem;
+  }
+  .cert-note code { color: var(--accent); font-family: var(--mono); font-size: 12px; }
+  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.15rem; }
+  .cert-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.025));
+    border: 1px solid rgba(255,255,255,0.11);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.24);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    overflow: hidden; position: relative; min-height: 292px;
+    display: flex; flex-direction: column;
+    transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+  }
+  .cert-card::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(200,169,110,0.18), transparent 35%);
+    opacity: 0; transition: opacity 0.28s ease;
+  }
+  .cert-card:hover {
+    transform: translateY(-8px) scale(1.015);
+    border-color: rgba(200,169,110,0.42);
+    box-shadow: 0 28px 70px rgba(0,0,0,0.38), 0 0 0 1px rgba(200,169,110,0.08) inset;
+    background: linear-gradient(145deg, rgba(255,255,255,0.105), rgba(255,255,255,0.03));
+  }
+  .cert-card:hover::before { opacity: 1; }
+  .cert-thumb {
+    aspect-ratio: 4/3; background: rgba(255,255,255,0.025); border-bottom: 1px solid var(--border);
+    overflow: hidden; position: relative; cursor: zoom-in;
+  }
+  .cert-thumb img, .cert-thumb iframe {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    filter: saturate(0.94) contrast(1.06); transition: transform 0.42s cubic-bezier(0.2,0.8,0.2,1), filter 0.3s ease;
+    border: 0; pointer-events: none;
+  }
+  .cert-card:hover .cert-thumb img, .cert-card:hover .cert-thumb iframe { transform: scale(1.07); filter: saturate(1.08) contrast(1.08); }
+  .cert-type-badge {
+    position: absolute; top: 0.75rem; left: 0.75rem; z-index: 2;
+    font-family: var(--mono); font-size: 9px; color: var(--bg); background: var(--accent);
+    padding: 0.25rem 0.45rem; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .cert-open-hint {
+    position: absolute; right: 0.75rem; bottom: 0.75rem; z-index: 2;
+    font-family: var(--mono); font-size: 9px; color: var(--text);
+    background: rgba(10,10,10,0.68); border: 1px solid rgba(255,255,255,0.12);
+    padding: 0.35rem 0.5rem; letter-spacing: 0.1em; text-transform: uppercase;
+    opacity: 0; transform: translateY(6px); transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+  .cert-card:hover .cert-open-hint { opacity: 1; transform: translateY(0); }
+  .cert-body { padding: 1rem; position: relative; z-index: 2; }
+  .cert-title { font-size: 14px; color: var(--text); font-weight: 400; margin-bottom: 0.35rem; }
+  .cert-meta { font-family: var(--mono); font-size: 10px; color: var(--accent2); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.7rem; }
+  .cert-link { font-family: var(--mono); font-size: 10px; color: var(--muted); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; }
+  .cert-link:hover { color: var(--accent); }
+  .cert-placeholder {
+    aspect-ratio: 4/3; min-height: 190px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem;
+    border-bottom: 1px solid var(--border); background: radial-gradient(circle at 50% 30%, rgba(200,169,110,0.08), transparent 60%);
+  }
+  .cert-placeholder-icon { font-family: var(--display); font-size: 42px; color: var(--accent); opacity: 0.45; }
+  .cert-placeholder-text { font-family: var(--mono); font-size: 10px; color: var(--muted); opacity: 0.75; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* CERTIFICATE MODAL / GALLERY */
+  .cert-modal {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.78); backdrop-filter: blur(16px);
+    opacity: 0; pointer-events: none; transition: opacity 0.28s ease;
+    padding: 5rem 6rem;
+  }
+  .cert-modal.active { opacity: 1; pointer-events: auto; }
+  .cert-modal-stage {
+    width: min(1120px, 92vw); height: min(760px, 82vh);
+    display: flex; align-items: center; justify-content: center;
+    transform: scale(0.88); opacity: 0;
+    transition: transform 0.32s cubic-bezier(0.2,0.8,0.2,1), opacity 0.25s ease;
+    position: relative;
+  }
+  .cert-modal.active .cert-modal-stage { transform: scale(1); opacity: 1; }
+  .cert-modal-stage img, .cert-modal-stage iframe {
+    max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain;
+    border: 1px solid rgba(255,255,255,0.14); background: #111;
+    box-shadow: 0 35px 95px rgba(0,0,0,0.72);
+  }
+  .cert-modal-stage iframe { width: 100%; height: 100%; }
+  .cert-modal-close, .cert-nav-btn {
+    position: absolute; z-index: 10000; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08); color: var(--text); backdrop-filter: blur(10px);
+    cursor: pointer; transition: transform 0.2s ease, color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .cert-modal-close {
+    top: 1.5rem; right: 2rem; width: 44px; height: 44px; display: grid; place-items: center;
+    font-size: 2rem; line-height: 1; font-family: var(--mono);
+  }
+  .cert-nav-btn {
+    top: 50%; transform: translateY(-50%); width: 52px; height: 72px;
+    font-size: 2.1rem; font-family: var(--display); display: grid; place-items: center;
+  }
+  .cert-nav-btn.prev { left: 1.5rem; }
+  .cert-nav-btn.next { right: 1.5rem; }
+  .cert-modal-close:hover, .cert-nav-btn:hover { color: var(--accent); border-color: rgba(200,169,110,0.45); background: rgba(200,169,110,0.1); }
+  .cert-nav-btn:hover { transform: translateY(-50%) scale(1.05); }
+  .cert-modal-caption {
+    position: absolute; left: 50%; bottom: 1.2rem; transform: translateX(-50%);
+    width: min(920px, calc(100vw - 2rem)); text-align: center;
+    font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase;
+    background: rgba(10,10,10,0.56); border: 1px solid rgba(255,255,255,0.1); padding: 0.75rem 1rem; backdrop-filter: blur(12px);
+  }
+
+  /* CONTACT */
+  #contact { background: var(--bg); }
+  .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+  .contact-left p { font-size: 14px; color: var(--muted); font-weight: 300; margin-bottom: 2rem; line-height: 1.8; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link { font-family: var(--mono); font-size: 12px; color: var(--text); text-decoration: none; letter-spacing: 0.08em; display: flex; align-items: center; gap: 0.75rem; transition: color 0.2s; }
+  .contact-link .cl-label { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em; width: 60px; }
+  .contact-link:hover { color: var(--accent); }
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+  .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-field label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .form-field input, .form-field textarea { background: var(--surface); border: 1px solid var(--border); color: var(--text); font-family: var(--body); font-size: 14px; font-weight: 300; padding: 0.75rem 1rem; outline: none; transition: border-color 0.2s; resize: none; }
+  .form-field input:focus, .form-field textarea:focus { border-color: rgba(200,169,110,0.5); }
+
+  footer { padding: 2rem 3rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  footer p { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 850px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { gap: 0.85rem; flex-wrap: wrap; justify-content: flex-end; }
+    #hero { padding: 0 1.25rem 4rem; }
+    #hero::after { left: 1.25rem; right: 1.25rem; }
+    section { padding: 4.5rem 1.25rem; }
+    .about-grid, .contact-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .tl-item, .edu-item { grid-template-columns: 1fr; gap: 0.75rem; }
+    .projects-grid, .awards-grid, .cert-grid, .skills-container { grid-template-columns: 1fr; }
+    .hero-contact-strip { flex-direction: column; gap: 0.55rem; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Abhay Singh</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#certificates">Certificates</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge-row">
+      <span class="hero-badge">Materials</span>
+      <span class="hero-badge">Metallurgy</span>
+      <span class="hero-badge">Computational Science</span>
+    </div>
+    <div class="hero-eyebrow">Aspiring Engineer · Materials Science &amp; Metallurgy</div>
+    <h1>
+      <span class="line">ENGINEERING</span>
+      <span class="line"><span class="for-word">FOR</span></span>
+      <span class="line tomorrow">TOMORROW</span>
+    </h1>
+    <p class="hero-desc">Pursuing a B.Tech in Materials Science &amp; Metallurgical Engineering — passionate about new alloys, computational materials, and the physics behind every material.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View Projects</button>
+      <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+    </div>
+    <div class="hero-contact-strip">
+      <span class="hcs-item">+91 9315712697</span>
+      <span class="hcs-item"><a href="mailto:imabhay.singhchaudhary@gmail.com">imabhay.singhchaudhary@gmail.com</a></span>
+      <span class="hcs-item">Fluent in English &amp; Hindi</span>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <h2>ABOUT</h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm <strong>Abhay Singh</strong>, an aspiring engineer currently studying B.Tech in Materials Sciences &amp; Metallurgy at <strong>Chhatrapati Sahu Ji Maharaj University, Kanpur</strong>.</p>
+      <p>My curiosity lies at the intersection of <strong>physical metallurgy, new alloy design, computational materials science,</strong> and the fundamentals of microstructure and phase transformations.</p>
+      <p>Beyond materials, I enjoy building things — from AI-powered web platforms to debate systems — because engineering for tomorrow means <strong>bridging the digital and the physical.</strong></p>
+    </div>
+    <div class="about-stats">
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Semesters Completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Projects Built</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4</div>
+        <div class="stat-label">MUN Awards</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Languages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <h2>EXPERIENCE</h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-date">May 2026 – June 2026</div>
+      <div>
+        <div class="tl-role">Industrial Training</div>
+        <div class="tl-title">Internship At Arora Iron and Steel Mills Private Limited</div>
+        <p class="tl-desc">Observed and learned steel and alloy making through Scrap Metal Route, learned about E.A.F., L.R.F., V.D., C.C.M., and rolling mill operations. Learned and performed microstructure analysis of different steel grades. </p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">May 2025 – July 2025</div>
+      <div>
+        <div class="tl-role">Project Lead</div>
+        <div class="tl-title">Debate Learning Online Platform</div>
+        <p class="tl-desc">Built a full-stack AI-powered debate learning platform using Next.js and Python. Led a team of 5 in design and development, built backend APIs, and handled application architecture.</p>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-header">
+    <span class="section-num">03 —</span>
+    <h2>EDUCATION</h2>
+  </div>
+  <div class="edu-grid">
+    <div class="edu-item">
+      <div class="edu-date">July 2025 – Present</div>
+      <div>
+        <div class="edu-tag">Current · B.Tech</div>
+        <div class="edu-institution">Chhatrapati Sahu Ji Maharaj University, Kanpur</div>
+        <div class="edu-degree">Bachelor of Technology — Materials Sciences &amp; Metallurgy</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-date">April 2023 – March 2025</div>
+      <div>
+        <div class="edu-tag">12th Standard</div>
+        <div class="edu-institution">Rawal International School, Faridabad</div>
+        <div class="edu-degree">Completed Intermediate from Rawal International School.</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-date">April 2013 – March 2023</div>
+      <div>
+        <div class="edu-tag">10th Standard</div>
+        <div class="edu-institution">Modern School, Faridabad</div>
+        <div class="edu-degree">Completed high school from Modern School.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">04 —</span>
+    <h2>PROJECTS</h2>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-tag">AI · Full Stack · Next.js · Python</div>
+      <div class="project-title">Peith AI — Debate Learning Platform</div>
+      <p class="project-desc">An AI-powered online learning platform for debate enthusiasts. Built with Next.js and Python — handles debate training, feedback, and structured learning flows.</p>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">WebApp · React · FastAPI · Python · Machine Learning</div>
+      <div class="project-title">HeatMetal M.S.E.</div>
+      <p class="project-desc">Developed full-stack web applications using React (Next.js) and FastAPI, integrating frontend and backend systems for scalable, and used Machine Learning Models to Predict heat treatment of Materials.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">05 —</span>
+    <h2>SKILLS</h2>
+  </div>
+  <div class="skills-container">
+    <div class="skill-group">
+      <div class="skill-group-title">Programming</div>
+      <div class="skill-item">
+        <div class="skill-name">Python <span class="skill-pct">80%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">C / C++ <span class="skill-pct">70%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="70"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">JavaScript <span class="skill-pct">75%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Git <span class="skill-pct">65%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="65"></div></div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Web Development</div>
+      <div class="skill-item">
+        <div class="skill-name">React / Next.js <span class="skill-pct">78%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="78"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">HTML / CSS <span class="skill-pct">85%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="85"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">FastAPI / Backend <span class="skill-pct">72%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="72"></div></div>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Materials Interest Areas</div>
+      <div class="skill-item">
+        <div class="skill-name">Physical Metallurgy <span class="skill-pct">60%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="60"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Microstructure &amp; Phase Trans. <span class="skill-pct">55%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="55"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">Computational Materials Sci. <span class="skill-pct">45%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="45"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-name">New Alloy Design <span class="skill-pct">40%</span></div>
+        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="40"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="awards">
+  <div class="section-header">
+    <span class="section-num">06 —</span>
+    <h2>AWARDS</h2>
+  </div>
+  <div class="awards-grid">
+    <div class="award-card">
+      <div class="award-icon">01</div>
+      <div class="award-title">Best Delegate</div>
+      <div class="award-event">Miranda House Delhi MUN Debate Competition</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">02</div>
+      <div class="award-title">Best Delegate</div>
+      <div class="award-event">IIT Delhi MUN Debate Competition</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">03</div>
+      <div class="award-title">Honourable Mention</div>
+      <div class="award-event">MVN MUN Debate Competition</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">04</div>
+      <div class="award-title">Honourable Mention</div>
+      <div class="award-event">MRMUN Debate Competition</div>
+    </div>
+  </div>
+</section>
+
+<section id="certificates">
+  <div class="section-header">
+    <span class="section-num">07 —</span>
+    <h2>CERTIFICATES</h2>
+  </div>
+  <p class="cert-note">Add certificates from the code only: edit the <code>certificates</code> array inside the script at the bottom of this file. Use image paths like <code>assets/certificate-name.jpg</code>.</p>
+  <div class="cert-grid" id="cert-grid"></div>
+</section>
+
+<section id="contact">
+  <div class="section-header">
+    <span class="section-num">08 —</span>
+    <h2>CONTACT</h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-left">
+      <p>Open to collaborations, internship opportunities, and conversations about materials science, engineering, or anything you're building.</p>
+      <div class="contact-links">
+        <a href="tel:+919315712697" class="contact-link"><span class="cl-label">Phone</span>+91 9315712697</a>
+        <a href="mailto:imabhay.singhchaudhary@gmail.com" class="contact-link"><span class="cl-label">Email</span>imabhay.singhchaudhary@gmail.com</a>
+      </div>
+    </div>
+    <form class="contact-form" action="https://formspree.io/f/mykawoqd" method="POST">
+  <div class="form-field">
+    <label>Name</label>
+    <input type="text" name="name" placeholder="Your name" required>
+  </div>
+
+  <div class="form-field">
+    <label>Email</label>
+    <input type="email" name="email" placeholder="your@email.com" required>
+  </div>
+
+  <div class="form-field">
+    <label>Message</label>
+    <textarea name="message" rows="5" placeholder="What's on your mind?" required></textarea>
+  </div>
+
+  <button type="submit" class="btn-primary" style="align-self:flex-start">Send Message</button>
+</form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 · Abhay Singh · Aspiring Engineer</p>
+  <p>Kanpur, India</p>
+</footer>
+
+
+<!-- CERTIFICATE MODAL / GALLERY -->
+<div class="cert-modal" id="certModal" aria-hidden="true">
+  <button class="cert-modal-close" id="closeCertModal" aria-label="Close certificate">&times;</button>
+  <button class="cert-nav-btn prev" id="prevCert" aria-label="Previous certificate">‹</button>
+  <div class="cert-modal-stage" id="certModalStage"></div>
+  <button class="cert-nav-btn next" id="nextCert" aria-label="Next certificate">›</button>
+  <div class="cert-modal-caption" id="certModalCaption">Certificate preview</div>
+</div>
+
+<script>
+  const fills = document.querySelectorAll('.skill-bar-fill');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.width = e.target.dataset.w + '%'; obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => obs.observe(f));
+
+  // Add certificates here only.
+  // For images: type: 'image', file: 'assets/certificate.jpg'
+  // For PDFs:   type: 'pdf',   file: 'assets/certificate.pdf'
+  const certificates = [
+    {
+      title: 'Python Data Analysis Certification',
+      issuer: 'FreeCodeCamp',
+      year: '2026',
+      type: 'image',
+      file: 'assets/DataAnalysisCertificate.png',
+      link: '#'
+    },
+    {
+      title: 'Introduction to ReactJs',
+      issuer: 'Upgrad',
+      year: '2025',
+      type: 'png',
+      file: 'assets/react_upgrad.png',
+      link: '#'
+    },
+    {
+      title: 'Introduction to Web Analytics',
+      issuer: 'Upgrad',
+      year: '2022',
+      type: 'pdf',
+      file: 'assets/upgrad_webanlytic.pdf',
+      link: '#'
+    },
+    {
+      title: 'Intellectual Property Rights',
+      issuer: 'Upgrad',
+      year: '2022',
+      type: 'pdf',
+      file: 'assets/upgrad_ipr.pdf',
+      link: '#'
+    },
+    {
+      title: 'Law and Justice',
+      issuer: 'Upgrad',
+      year: '2022',
+      type: 'pdf',
+      file: 'assets/upgrad_lawndjustice.pdf',
+      link: '#'
+    },
+    {
+      title: 'Introduction to Blockchain',
+      issuer: 'Upgrad',
+      year: '2021',
+      type: 'pdf',
+      file: 'assets/upgrad_blockchain.pdf',
+      link: '#'
+    },
+    
+    
+
+    // Add more certificates like this:
+    // {
+    //   title: 'Certificate Title',
+    //   issuer: 'Issuer Name',
+    //   year: '2026',
+    //   type: 'image', // use 'pdf' for PDF files
+    //   file: 'assets/your-certificate-file.jpg',
+    //   link: 'https://certificate-link.com'
+    // }
+  ];
+
+  const certGrid = document.getElementById('cert-grid');
+  const certModal = document.getElementById('certModal');
+  const certModalStage = document.getElementById('certModalStage');
+  const certModalCaption = document.getElementById('certModalCaption');
+  const closeCertModal = document.getElementById('closeCertModal');
+  const prevCert = document.getElementById('prevCert');
+  const nextCert = document.getElementById('nextCert');
+  let activeCertIndex = 0;
+
+  function escapeHTML(value) {
+    return String(value).replace(/[&<>'"]/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+    }[char]));
+  }
+
+  function renderCertificates() {
+    certGrid.innerHTML = '';
+
+    if (certificates.length === 0) {
+      for (let i = 1; i <= 3; i++) {
+        certGrid.innerHTML += `
+          <div class="cert-card">
+            <div class="cert-placeholder">
+              <div class="cert-placeholder-icon">+</div>
+              <div class="cert-placeholder-text">Add Certificate ${i} In Code</div>
+            </div>
+            <div class="cert-body">
+              <div class="cert-title">Certificate Slot ${i}</div>
+              <div class="cert-meta">Edit certificates array</div>
+            </div>
+          </div>`;
+      }
+      return;
+    }
+
+    certificates.forEach((cert, i) => {
+      const card = document.createElement('article');
+      card.className = 'cert-card';
+      card.dataset.index = i;
+
+      const safeTitle = escapeHTML(cert.title);
+      const safeIssuer = escapeHTML(cert.issuer);
+      const safeYear = escapeHTML(cert.year);
+      const safeFile = escapeHTML(cert.file);
+      const type = cert.type === 'pdf' ? 'pdf' : 'image';
+
+      const preview = type === 'pdf'
+        ? `<iframe src="${safeFile}#toolbar=0&navpanes=0&scrollbar=0" title="${safeTitle} PDF preview"></iframe>`
+        : `<img src="${safeFile}" alt="${safeTitle}" onerror="this.parentElement.innerHTML='<div class=&quot;cert-placeholder&quot;><div class=&quot;cert-placeholder-icon&quot;>+</div><div class=&quot;cert-placeholder-text&quot;>File not found</div></div>'">`;
+
+      card.innerHTML = `
+        <div class="cert-thumb" data-index="${i}" role="button" tabindex="0" aria-label="Open ${safeTitle}">
+          <span class="cert-type-badge">${type}</span>
+          ${preview}
+          <span class="cert-open-hint">Click to enlarge</span>
+        </div>
+        <div class="cert-body">
+          <div class="cert-title">${safeTitle}</div>
+          <div class="cert-meta">${safeIssuer} · ${safeYear}</div>
+          ${cert.link && cert.link !== '#' ? `<a class="cert-link" href="${escapeHTML(cert.link)}" target="_blank" rel="noopener">View Credential →</a>` : '<span class="cert-link">Credential link not added</span>'}
+        </div>`;
+
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${e.clientY - rect.top}px`);
+      });
+
+      certGrid.appendChild(card);
+    });
+  }
+
+  function openCertificate(index) {
+    if (!certificates.length) return;
+    activeCertIndex = (index + certificates.length) % certificates.length;
+    const cert = certificates[activeCertIndex];
+    const type = cert.type === 'pdf' ? 'pdf' : 'image';
+
+    certModalStage.innerHTML = type === 'pdf'
+      ? `<iframe src="${escapeHTML(cert.file)}" title="${escapeHTML(cert.title)} PDF"></iframe>`
+      : `<img src="${escapeHTML(cert.file)}" alt="${escapeHTML(cert.title)}">`;
+
+    certModalCaption.textContent = `${cert.title} · ${cert.issuer} · ${cert.year}`;
+    certModal.classList.add('active');
+    certModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCertificate() {
+    certModal.classList.remove('active');
+    certModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    setTimeout(() => { if (!certModal.classList.contains('active')) certModalStage.innerHTML = ''; }, 250);
+  }
+
+  function showNextCertificate() { openCertificate(activeCertIndex + 1); }
+  function showPrevCertificate() { openCertificate(activeCertIndex - 1); }
+
+  certGrid.addEventListener('click', e => {
+    const thumb = e.target.closest('.cert-thumb');
+    if (!thumb) return;
+    openCertificate(Number(thumb.dataset.index));
+  });
+
+  certGrid.addEventListener('keydown', e => {
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('cert-thumb')) {
+      e.preventDefault();
+      openCertificate(Number(e.target.dataset.index));
+    }
+  });
+
+  closeCertModal.addEventListener('click', closeCertificate);
+  nextCert.addEventListener('click', showNextCertificate);
+  prevCert.addEventListener('click', showPrevCertificate);
+
+  certModal.addEventListener('click', e => {
+    if (e.target === certModal) closeCertificate();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (!certModal.classList.contains('active')) return;
+    if (e.key === 'Escape') closeCertificate();
+    if (e.key === 'ArrowRight') showNextCertificate();
+    if (e.key === 'ArrowLeft') showPrevCertificate();
+  });
+
+  renderCertificates();
+</script>
+</body>
+</html>
