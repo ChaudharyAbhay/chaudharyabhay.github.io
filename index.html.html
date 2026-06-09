@@ -345,12 +345,12 @@
         <div class="stat-label">Projects Built</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num">4</div>
-        <div class="stat-label">MUN Awards</div>
+        <div class="stat-num">6</div>
+        <div class="stat-label">Awards</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Languages</div>
+        <div class="stat-num">12</div>
+        <div class="stat-label">Certifications</div>
       </div>
     </div>
   </div>
@@ -443,54 +443,43 @@
     <div class="skill-group">
       <div class="skill-group-title">Programming</div>
       <div class="skill-item">
-        <div class="skill-name">Python <span class="skill-pct">80%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="80"></div></div>
+        <div class="skill-name">Python <span class="skill-pct">90%</span></div>
       </div>
       <div class="skill-item">
         <div class="skill-name">C / C++ <span class="skill-pct">70%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="70"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-name">JavaScript <span class="skill-pct">75%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="75"></div></div>
       </div>
       <div class="skill-item">
-        <div class="skill-name">Git <span class="skill-pct">65%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="65"></div></div>
+        <div class="skill-name">Version Conrtol System (Git) <span class="skill-pct">85%</span></div>
       </div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Web Development</div>
       <div class="skill-item">
-        <div class="skill-name">React / Next.js <span class="skill-pct">78%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="78"></div></div>
+        <div class="skill-name">Frontend (React / Next.js) <span class="skill-pct">88%</span></div>
       </div>
       <div class="skill-item">
-        <div class="skill-name">HTML / CSS <span class="skill-pct">85%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="85"></div></div>
+        <div class="skill-name">HTML / CSS / Js<span class="skill-pct">85%</span></div>
       </div>
       <div class="skill-item">
-        <div class="skill-name">FastAPI / Backend <span class="skill-pct">72%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill teal" data-w="72"></div></div>
+        <div class="skill-name"> Backend (FastAPI , Python, TypeScript , JavaScript) <span class="skill-pct">72%</span></div>
       </div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Materials Interest Areas</div>
       <div class="skill-item">
         <div class="skill-name">Physical Metallurgy <span class="skill-pct">60%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="60"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-name">Microstructure &amp; Phase Trans. <span class="skill-pct">55%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="55"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-name">Computational Materials Sci. <span class="skill-pct">45%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="45"></div></div>
       </div>
       <div class="skill-item">
         <div class="skill-name">New Alloy Design <span class="skill-pct">40%</span></div>
-        <div class="skill-bar-bg"><div class="skill-bar-fill" data-w="40"></div></div>
       </div>
     </div>
   </div>
@@ -522,6 +511,16 @@
       <div class="award-title">Honourable Mention</div>
       <div class="award-event">MRMUN Debate Competition</div>
     </div>
+    <div class="award-card">
+      <div class="award-icon">05</div>
+      <div class="award-title">First Prize</div>
+      <div class="award-event">CSJMU Innovation Foundation Ideathon</div>
+    </div>
+    <div class="award-card">
+      <div class="award-icon">06</div>
+      <div class="award-title">First Prize</div>
+      <div class="award-event">IIT Kanpur Material's Quiz</div>
+    </div>
   </div>
 </section>
 
@@ -530,7 +529,7 @@
     <span class="section-num">07 —</span>
     <h2>CERTIFICATES</h2>
   </div>
-  <p class="cert-note">Add certificates from the code only: edit the <code>certificates</code> array inside the script at the bottom of this file. Use image paths like <code>assets/certificate-name.jpg</code>.</p>
+  <p class="cert-note">Achieved certificates and awards.</p>
   <div class="cert-grid" id="cert-grid"></div>
 </section>
 
@@ -591,10 +590,6 @@
     });
   }, { threshold: 0.3 });
   fills.forEach(f => obs.observe(f));
-
-  // Add certificates here only.
-  // For images: type: 'image', file: 'assets/certificate.jpg'
-  // For PDFs:   type: 'pdf',   file: 'assets/certificate.pdf'
   const certificates = [
     {
       title: 'Python Data Analysis Certification',
@@ -605,11 +600,51 @@
       link: '#'
     },
     {
+      title: 'CSJMIF Ideathon 1st Prize(Cash Prize of 25k INR)',
+      issuer: 'CSJM Innovation Foundation',
+      year: '2026',
+      type: 'png',
+      file: 'assets/certifcate_csjmif_1stprze.jpeg',
+      link: '#'
+    },
+    {
+      title: 'IIT Kanpur Materials Quiz',
+      issuer: 'IIT Kanpur',
+      year: '2025',
+      type: 'png',
+      file: 'assets/Certificate_Materialsquiz_2025.jpeg',
+      link: '#'
+    },
+    {
       title: 'Introduction to ReactJs',
       issuer: 'Upgrad',
       year: '2025',
       type: 'png',
       file: 'assets/react_upgrad.png',
+      link: '#'
+    },
+    {
+      title: 'IITD Model United Nations',
+      issuer: 'IITD',
+      year: '2024',
+      type: 'png',
+      file: 'assets/Certificate_IIITDmun_2024.jpeg',
+      link: '#'
+    },
+    {
+      title: 'Miranda House Model United Nations',
+      issuer: 'Miranda House',
+      year: '2024',
+      type: 'png',
+      file: 'assets/Certificate_MirdandaMUN_2024.jpeg',
+      link: '#'
+    },
+    {
+      title: 'Model United Nations',
+      issuer: 'Manav Rachna International School',
+      year: '2023',
+      type: 'png',
+      file: 'assets/Certificate_MRMUN_2023.jpeg',
       link: '#'
     },
     {
@@ -644,6 +679,15 @@
       file: 'assets/upgrad_blockchain.pdf',
       link: '#'
     },
+    {
+      title: 'Web Development',
+      issuer: 'IISC',
+      year: '2021',
+      type: 'png',
+      file: 'assets/Certi_webdev_2021.png',
+      link: '#'
+    },
+    
     
     
 
