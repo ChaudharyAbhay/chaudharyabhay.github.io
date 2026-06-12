@@ -54,6 +54,10 @@
       background: rgba(10,10,10,0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+    nav.nav-hidden {
+    transform: translateY(-100%);
     }
 
     .nav-logo {
@@ -576,7 +580,7 @@
 
 <body>
 
-  <nav>
+  <nav id="navbar">
     <div class="nav-logo">Abhay Singh</div>
 
     <ul class="nav-links">
@@ -794,6 +798,21 @@
 
       papersGrid.appendChild(card);
     });
+    let lastScrollTop = 0;
+const navbar = document.getElementById("navbar");
+
+window.addEventListener("scroll", () => {
+  const currentScroll =
+    window.pageYOffset || document.documentElement.scrollTop;
+
+  if (currentScroll > lastScrollTop && currentScroll > 100) {
+    navbar.classList.add("nav-hidden");
+  } else {
+    navbar.classList.remove("nav-hidden");
+  }
+
+  lastScrollTop = Math.max(currentScroll, 0);
+});
   </script>
 
 </body>
