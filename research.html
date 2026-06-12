@@ -179,6 +179,21 @@
       align-items: center;
       justify-content: center;
     }
+    .paper-doi{
+      margin-bottom:1rem;
+      font-family:var(--mono);
+      font-size:11px;
+      color:var(--muted);
+    }
+
+    .paper-doi a{
+      color:var(--accent);
+      text-decoration:none;
+    }
+
+.paper-doi a:hover{
+  text-decoration:underline;
+}
 
     .btn-primary {
       color: var(--bg);
@@ -765,6 +780,7 @@
           "A report focused on microstructural observations of steel samples after different heat treatment conditions such as annealing, normalising, and carburising.",
         tags: ["Metallography", "Heat Treatment", "Microstructure", "Steel"],
         paperLink: "https://zenodo.org/records/20660689",
+
       }
     ];
 
@@ -783,6 +799,7 @@
         <div class="paper-title">${paper.title}</div>
         <div class="paper-meta">${paper.year} · ${paper.status}</div>
         <p class="paper-desc">${paper.description}</p>
+        
 
         <div class="paper-tags">
           ${tagsHTML}
@@ -814,3 +831,9 @@ window.addEventListener("scroll", () => {
 
 </body>
 </html>
+
+
+
+
+
+
