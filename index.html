@@ -115,7 +115,12 @@
   .project-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.75rem; }
   .project-title { font-family: var(--display); font-size: 26px; color: var(--text); letter-spacing: 0.03em; margin-bottom: 0.75rem; line-height: 1.1; }
   .project-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.7; }
-
+.research-btn-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:3rem 0;
+}
   /* SKILLS */
   #skills { background: var(--surface); }
   .skills-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
@@ -289,6 +294,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="research.html">Research</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#awards">Awards</a></li>
     <li><a href="#certificates">Certificates</a></li>
@@ -317,7 +323,7 @@
       <button class="btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
     </div>
     <div class="hero-contact-strip">
-      <span class="hcs-item">+91 9315712697</span>
+      <span class="hcs-item"><a href="https://www.linkedin.com/in/abhay-singh-85b9a9374?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">View Linkedin</a></span>
       <span class="hcs-item"><a href="mailto:imabhay.singhchaudhary@gmail.com">imabhay.singhchaudhary@gmail.com</a></span>
       <span class="hcs-item">Fluent in English &amp; Hindi</span>
     </div>
@@ -434,6 +440,11 @@
   </div>
 </section>
 
+<div class="research-btn-container">
+    <button class="btn-primary" onclick="window.location.href='research.html'">
+        View Research & Technical Writing
+    </button>
+</div>
 <section id="skills">
   <div class="section-header">
     <span class="section-num">05 —</span>
@@ -527,7 +538,7 @@
 <section id="certificates">
   <div class="section-header">
     <span class="section-num">07 —</span>
-    <h2>CERTIFICATES</h2>
+    <h2>CERTIFICATIONS AND AWARDS</h2>
   </div>
   <p class="cert-note">Achieved certificates and awards.</p>
   <div class="cert-grid" id="cert-grid"></div>
@@ -542,7 +553,6 @@
     <div class="contact-left">
       <p>Open to collaborations, internship opportunities, and conversations about materials science, engineering, or anything you're building.</p>
       <div class="contact-links">
-        <a href="tel:+919315712697" class="contact-link"><span class="cl-label">Phone</span>+91 9315712697</a>
         <a href="mailto:imabhay.singhchaudhary@gmail.com" class="contact-link"><span class="cl-label">Email</span>imabhay.singhchaudhary@gmail.com</a>
       </div>
     </div>
