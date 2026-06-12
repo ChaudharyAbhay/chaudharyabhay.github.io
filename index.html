@@ -31,51 +31,6 @@ nav {
 
   transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
 }
-.hamburger {
-  display: none;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--accent);
-  font-size: 22px;
-  padding: 0.4rem 0.7rem;
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  .nav-links {
-    position: absolute;
-    top: 100%;
-    right: 1rem;
-    width: 220px;
-    display: none;
-    flex-direction: column;
-    gap: 0;
-    background: rgba(10,10,10,0.96);
-    border: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-
-  .nav-links a {
-    display: block;
-    padding: 1rem;
-  }
-}
 
 nav.nav-hidden {
   transform: translateY(-100%);
@@ -347,9 +302,7 @@ nav.nav-hidden {
 
 <nav id="navbar">
   <div class="nav-logo">Abhay Singh</div>
-  <button class="hamburger" id="hamburger" aria-label="Open menu">
-    ☰
-  </button>
+  
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
@@ -913,12 +866,6 @@ window.addEventListener("scroll", () => {
   }
 
   lastScrollTop = Math.max(currentScroll, 0);
-});
-const hamburger = document.getElementById("hamburger");
-const navLinks = document.getElementById("navLinks");
-
-hamburger.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
 });
 </script>
 </body>
